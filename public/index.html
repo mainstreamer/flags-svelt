@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+
+	<title>Svelte app</title>
+
+	<link rel='icon' type='image/png' href='/favicon.png'>
+	<link rel='stylesheet' href='global.css'>
+	<link rel='stylesheet' href='build/bundle.css'>
+
+	<script defer src='build/bundle.js'></script>
+	<script type="text/javascript">
+		function onTelegramAuth(user) {
+			alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+		}
+	</script>
+</head>
+
+<body>
+
+<div>
+<!--	<script async src="https://telegram.org/js/telegram-widget.js?7"-->
+<!--		data-telegram-login="flagstestbot"-->
+<!--		data-size="large"-->
+<!--		data-auth-url="https://localhost/api/tg/login"-->
+<!--		data-request-access="write"-->
+<!--		data-onauth="onTelegramAuth(user)">-->
+<!--	</script>-->
+</div>
+
+
+</body>
+</html>
