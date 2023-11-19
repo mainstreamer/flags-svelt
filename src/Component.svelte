@@ -3,11 +3,14 @@
 
   export let action;
   let secondsSpent = 0;
-  let maxTime = 20;
+  let maxTime = 30;
   let timerStoppedEvent = ((dispatch = createEventDispatcher()) =>
           () => { dispatch('timerStopped', {data: secondsSpent});}
   )();
 
+  let timeoutEvent = ((dispatch = createEventDispatcher()) =>
+                  () => { dispatch('timeout', {});}
+  )();
 
   let timer = null;
   $: if (action) {
@@ -24,6 +27,7 @@
         break;
       case 'stop':
         stop();
+        secondsSpent = 0;
         console.log('stop')
         break;
       default:
@@ -39,12 +43,13 @@
   let start = () => timer = timerFunction();
 
   const timeout = () => {
-    alert('Game Over');
     stop();
+    timeoutEvent();
   }
+
   const stop = () => {
-    clearInterval(timer);
     timerStoppedEvent();
+    clearInterval(timer);
   }
 
   onDestroy(() => {
@@ -53,12 +58,23 @@
 
 </script>
 
-<div>
-  time: {maxTime - secondsSpent} <button on:click={stop}>STOP!</button>
-<!--  <button on:click={restart}>START!</button>-->
+<div class="localTimerContainer">
+  <h4>Time left: {maxTime - secondsSpent}</h4>
+<!--  <button class="stopTimerButton" on:click={stop}>STOP!</button>-->
 
+<!--  <button on:click={restart}>START!</button>-->
 
 <!--  <h5>sec: {secondsSpent}</h5>-->
 </div>
 <style>
+  div, h4 {
+    margin-top: 5px;
+    padding: 0;
+  }
+
+  /*.stopTimerButton {*/
+  /*  position: absolute;*/
+  /*  top: 5px;*/
+  /*  right: 5px;*/
+  /*}*/
 </style>
