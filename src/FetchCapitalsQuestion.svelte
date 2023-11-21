@@ -15,13 +15,15 @@
   let timerCommand = null;
   let score = 0;
   let livesText = null;
+  let youWin = false;
+  let scoreToWin = 1;
 
   const fetchData = async () => {
     try {
       timerCommand = {action : 'start'}
       // timerCommand = {action : 'stop'}
       answerResult = null;
-      const response = await customFetch(`${urlBase}`);
+      const response = await customFetch(`${urlBase}/question/${localStorage.getItem('gameId')}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -54,6 +56,7 @@
             ? (livesCount === 1 ? (livesCount=0, triggerGameOver()) : (() => { livesCount-- })())
             : (timerCommand = {action : 'stop'}, score++);
     displayLives();
+    checkWin();
   }
 
   const displayLives = () => {
@@ -70,7 +73,11 @@
   const triggerGameOver = ((dispatch = createEventDispatcher()) => () => {
     // timerCommand = { action : 'stop'}; // this stops timer and updates total time via event
     dispatch('triggerGameOver', {score: score});
-    answerResult =  { text : `GAME OVER 👾`, stat: `scored ${score} in ${timeTotal} sec`}
+    if (score === scoreToWin) {
+      answerResult =  { text : `You Won! 👾🎊`, stat: `scored ${score} in ${timeTotal} sec`}
+    } else {
+      answerResult =  { text : `GAME OVER 👾`, stat: `scored ${score} in ${timeTotal} sec`}
+    }
   })();
 
   const onFinalScore = () => {
@@ -102,6 +109,15 @@
   }
 
   onMount(() => fetchData());
+
+  const checkWin = () => {
+    if (score === scoreToWin) {
+      youWin = true;
+      triggerGameOver();
+    }
+  }
+
+
 </script>
 <div class="mainContainer">
   {#if !data}
@@ -110,6 +126,9 @@
   {#if error}
     <p style="color: red;">Error: {error}</p>
   {:else if data}
+    {#if youWin}
+      <div class="hooray">🏆🥇✨</div>
+    {/if}
     <div class="scoreBox">
       <div>Score: {score}</div>
       <div>Lives: {livesText}</div>
@@ -123,7 +142,7 @@
 
       <div class="messageBox">
         {#if answerResult}
-          {#if answerResult.text.includes('GAME OVER') }
+          {#if answerResult.text.includes('GAME OVER') || answerResult.text.includes('You Won')}
             <marquee behavior="alternate">
               {answerResult.text}
               <div class="smallerText">{answerResult.stat}</div>
@@ -240,5 +259,28 @@
     position: absolute;
     top: 5px;
     right: 5px;
+  }
+
+
+  .hooray {
+    height: 100%;
+    width: 100%;
+
+    line-height: 400px;
+
+    font-size: 55px;
+    position: absolute;
+    /*top: 20%;*/
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.4); /* White background with opacity */
+    border-radius: 10px; /* Optional: for rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: for subtle shadow */
+
+    /* Backdrop filter for the frosted glass effect */
+    backdrop-filter: blur(10px);
+
+    /* Cross-browser compatibility */
+    -webkit-backdrop-filter: blur(10px);
   }
 </style>

@@ -7,23 +7,24 @@
 
   export let name;
   let timeTotal = 0;
-  // let inProgress = false;
+
+  let gameId = null;
   export let inProgress = false;
 
   export let finalScore = null;
+
 
   const updateTimeTotal = (event) => {
       timeTotal += event.detail.data;
     console.log('TIME UPDATED', event.detail.data, timeTotal);
   }
-  // const resetTimeTotal = (event) => {
-  //     timeTotal = 0;
-  // }
+
+
+
 
   const onTelegramAuth = async (user) => {
     try {
-      // let urlBase = 'https://capitals.tldr.icu/api/tg/login';
-      const response = await fetch(`${urlTgAuth}?${new URLSearchParams(user)}`);
+      let response = await fetch(`${urlTgAuth}?${new URLSearchParams(user)}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -31,10 +32,21 @@
       // todo check ?
       localStorage.setItem('accessToken', data.token);
       inProgress = true;
+      startGame();
     } catch (err) {
       let error = err.message;
     }
   };
+
+  const startGame = async () => {
+    let response = await customFetch(`${urlBase}/game-start`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    let data = await response.json();
+    localStorage.setItem('gameId', data.gameId);
+    gameId = data.gameId;
+  }
 
   const gameOver = (event) => {
     customFetch(`${urlBase}/game-over`,
@@ -45,6 +57,11 @@
     timeTotal = 0;
   }
 
+  const devModeOn = () => {
+    startGame();
+    inProgress = true;
+  }
+
 </script>
 <div>
   {#if inProgress}
@@ -53,7 +70,7 @@
   {:else}
     <HighScores/>
     <center>
-      <TelegramLoginWidget onTelegramAuth={onTelegramAuth}/>
+      <TelegramLoginWidget onTelegramAuth={onTelegramAuth} onDevMode="{devModeOn}"/>
     </center>
   {/if}
 </div>
