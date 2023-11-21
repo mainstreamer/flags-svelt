@@ -16,13 +16,14 @@ onMount(() => {
     window.onTelegramAuth = onTelegramAuth;
     document.getElementById('telegram-login').appendChild(script);
 
-    <!--const checkWidgetLoaded = () => {-->
-    <!--    const widgetIframe = document.getElementById('telegram-login-flagstestbot');-->
-    <!--    if (!widgetIframe || widgetIframe.contentWindow.document.body.textContent.includes('Bot domain invalid')) {-->
-    <!--        onDevMode();-->
-    <!--    }-->
-    <!--};-->
-    // // Check after a reasonable amount of time to allow the widget to load
+    // const checkWidgetLoaded = () => {
+        // onDevMode();
+        // const widgetIframe = document.getElementById('telegram-login-flagstestbot');
+        // if (!widgetIframe || widgetIframe.contentWindow.document.body.textContent.includes('Bot domain invalid')) {
+        //
+        // }
+    // };
+    // Check after a reasonable amount of time to allow the widget to load
     // setTimeout(checkWidgetLoaded, 1000); // Adjust time as necessary
 });
 </script>

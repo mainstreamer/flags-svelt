@@ -24,6 +24,7 @@
 
   const onTelegramAuth = async (user) => {
     try {
+      startGame();
       let response = await fetch(`${urlTgAuth}?${new URLSearchParams(user)}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -32,7 +33,6 @@
       // todo check ?
       localStorage.setItem('accessToken', data.token);
       inProgress = true;
-      startGame();
     } catch (err) {
       let error = err.message;
     }

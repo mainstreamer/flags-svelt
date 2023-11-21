@@ -16,7 +16,7 @@
   let score = 0;
   let livesText = null;
   let youWin = false;
-  let scoreToWin = 1;
+  let scoreToWin = 54;
 
   const fetchData = async () => {
     try {
