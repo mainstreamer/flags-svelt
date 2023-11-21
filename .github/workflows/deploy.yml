@@ -1,0 +1,32 @@
+name: Build and Deploy Svelte App
+
+on:
+  push:
+    branches:
+      - main  # Set the branch to trigger the workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        # Checks-out your repository under $GITHUB_WORKSPACE
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'  # Set the Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Svelte app
+        run: npm run build
+        # Add additional steps if you have any post-build processes
+
+      - name: Deploy to Custom Location
+        run: |
+          ls -la
+          # Add your custom deployment scripts here
+          # Use scp or rsync for file transfer, for example
