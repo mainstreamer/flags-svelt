@@ -30,3 +30,18 @@ jobs:
           ls -la
           # Add your custom deployment scripts here
           # Use scp or rsync for file transfer, for example
+
+      - name: Write Secrets
+        run: |
+          ls -la
+          echo "${{ secrets.DD_KEY }}" | base64 --decode > ${HOME}/key.pem
+          echo "${{ secrets.DD_CA }}" | base64 --decode > ${HOME}/ca.pem
+          echo "${{ secrets.DD_CERT }}" | base64 --decode > ${HOME}/cert.pem
+          cd ${HOME} && ls -la
+          docker context create icu --docker "host=tcp://138.68.184.69:2376,ca=${HOME}/ca.pem,cert=${HOME}/cert.pem,key=${HOME}/key.pem"
+      - name: Use context
+        run: docker context use icu
+      - name: Deploy files
+        run: `docker cp public nginx-router:/var/www/html`
+      - name: Remove keys
+        run: rm ${HOME}/ca.pem ${HOME}/cert.pem ${HOME}/key.pem
