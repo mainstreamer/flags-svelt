@@ -42,6 +42,6 @@ jobs:
       - name: Use context
         run: docker context use icu
       - name: Deploy files
-        run: `docker cp public nginx-router:/var/www/html`
+        run: docker cp public nginx-router:/var/www/html
       - name: Remove keys
         run: rm ${HOME}/ca.pem ${HOME}/cert.pem ${HOME}/key.pem
