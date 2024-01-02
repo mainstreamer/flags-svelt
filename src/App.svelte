@@ -54,7 +54,6 @@
             body: JSON.stringify({'score' : event.detail.score, 'sessionTimer' : timeTotal, 'gameId' : localStorage.getItem('gameId')})
           });
     timeTotal = 0;
-    inProgress = false;
     localStorage.setItem('gameId', null);
   }
 

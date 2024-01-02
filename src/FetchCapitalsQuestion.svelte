@@ -104,8 +104,8 @@
   }
 
   const goBack = () => {
-    inProgress = false;
     localStorage.setItem('gameId', null);
+    inProgress = false;
     location.reload();
   }
 
