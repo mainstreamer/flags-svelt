@@ -13,18 +13,17 @@
 
   export let finalScore = null;
 
+  let gameType = 'CAPITALS_EUROPE';
 
   const updateTimeTotal = (event) => {
       timeTotal += event.detail.data;
     console.log('TIME UPDATED', event.detail.data, timeTotal);
   }
 
-
-
-
   const onTelegramAuth = async (user) => {
     try {
-      startGame();
+      console.log(self.gameType);
+      startGame(self.gameType);
       let response = await fetch(`${urlTgAuth}?${new URLSearchParams(user)}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -38,8 +37,8 @@
     }
   };
 
-  const startGame = async () => {
-    let response = await customFetch(`${urlBase}/game-start`);
+  const startGame = async (gameType) => {
+    let response = await customFetch(`${urlBase}/game-start/${gameType}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -52,13 +51,13 @@
     customFetch(`${urlBase}/game-over`,
           {
             method : 'POST',
-            body: JSON.stringify({'score' : event.detail.score, 'sessionTimer' : timeTotal})
+            body: JSON.stringify({'score' : event.detail.score, 'sessionTimer' : timeTotal, 'gameId' : localStorage.getItem('gameId')})
           });
     timeTotal = 0;
   }
 
   const devModeOn = () => {
-    startGame();
+    startGame('CAPITALS_EUROPE');
     inProgress = true;
   }
 
