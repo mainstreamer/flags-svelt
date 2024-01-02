@@ -8,12 +8,13 @@
   export let name;
   let timeTotal = 0;
 
-  let gameId = null;
+  export let gameId = null;
   export let inProgress = false;
+  export let scoreToWin = 54;
 
   export let finalScore = null;
 
-  let gameType = 'CAPITALS_EUROPE';
+  export let gameType = 'CAPITALS_EUROPE';
 
   const updateTimeTotal = (event) => {
       timeTotal += event.detail.data;
@@ -22,9 +23,9 @@
 
   const onTelegramAuth = async (user) => {
     try {
-      console.log(self.gameType);
+      console.log(gameType);
 
-      startGame(self.gameType); // TODO fix bug
+      startGame(); // TODO fix bug
       let response = await fetch(`${urlTgAuth}?${new URLSearchParams(user)}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -38,14 +39,33 @@
     }
   };
 
-  const startGame = async (gameType) => {
+  const startGame = async () => {
+    console.log(gameType);
     let response = await customFetch(`${urlBase}/game-start/${gameType}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     let data = await response.json();
-    localStorage.setItem('gameId', data.gameId);
+    // localStorage.setItem('gameId', data.gameId);
     gameId = data.gameId;
+
+    switch (gameType) {
+      case 'CAPITALS_EUROPE':
+        scoreToWin = 46;
+        break;
+      case 'CAPITALS_ASIA':
+        scoreToWin = 48;
+        break;
+      case 'CAPITALS_AFRICA':
+        scoreToWin = 54;
+        break;
+      case 'CAPITALS_OCEANIA':
+        scoreToWin = 25;
+        break;
+      case 'CAPITALS_AMERICAS':
+        scoreToWin = 53;
+        break;
+    }
   }
 
   const gameOver = (event) => {
@@ -59,17 +79,20 @@
   }
 
   const devModeOn = () => {
-    startGame('CAPITALS_EUROPE');
-    inProgress = true;
+    console.log('DEV MODE');
+    // startGame('CAPITALS_EUROPE');
+    // inProgress = true;
   }
+
+  const changeGameType = (type) => gameType = type;
 
 </script>
 <div>
   {#if inProgress}
     <h4>Time elapsed: {timeTotal} </h4>
-    <FetchCapitalsQuestion on:updateTimeTotal={updateTimeTotal} on:triggerGameOver={gameOver} timeTotal="{timeTotal}" inProgress="{inProgress}"/>
+    <FetchCapitalsQuestion on:updateTimeTotal={updateTimeTotal} on:triggerGameOver={gameOver} timeTotal="{timeTotal}" inProgress="{inProgress}" scoreToWin="{scoreToWin}" gameId="{gameId}"/>
   {:else}
-    <HighScores/>
+    <HighScores gameType="{gameType}" changeGameType="{changeGameType}"/>
     <center>
       <TelegramLoginWidget onTelegramAuth={onTelegramAuth} onDevMode="{devModeOn}"/>
     </center>

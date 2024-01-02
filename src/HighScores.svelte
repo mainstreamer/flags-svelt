@@ -4,24 +4,34 @@
 
   let data = null;
   let mappedSlug = '';
+  export let gameType;
+  export let changeGameType;
 
   let getItems = async () => {
+    console.log(gameType);
     console.log(`${urlBase}/high-scores`);
-    switch (localGameType) {
+    switch (gameType) {
       case 'CAPITALS_EUROPE':
         mappedSlug = 'europe';
+        changeGameType(gameType);
         break;
       case 'CAPITALS_ASIA':
         mappedSlug = 'asia';
+        changeGameType(gameType);
         break;
       case 'CAPITALS_AFRICA':
         mappedSlug = 'africa';
+        changeGameType(gameType);
         break;
       case 'CAPITALS_OCEANIA':
         mappedSlug = 'oceania';
+        changeGameType(gameType);
         break;
       case 'CAPITALS_AMERICAS':
         mappedSlug = 'americas';
+        changeGameType(gameType);
+        break;
+      default:
         break;
     }
 
@@ -34,11 +44,9 @@
     // return data;
   }
 
-  let localGameType = 'CAPITALS_EUROPE';
   let func = (arg) => {
-    self.gameType = arg;
-    console.log(self.gameType);
-    localGameType = arg;
+    gameType = arg;
+    console.log(gameType);
     getItems();
   }
 
@@ -50,11 +58,11 @@
   <center>
     Imagine beautiful landing page ✨
   </center>
-  <div class:clicked={localGameType === 'CAPITALS_EUROPE'} on:click={() => func('CAPITALS_EUROPE')}>EUROPE</div>
-  <div class:clicked={localGameType === 'CAPITALS_ASIA'} on:click={() => func('CAPITALS_ASIA')}>ASIA</div>
-  <div class:clicked={localGameType === 'CAPITALS_AFRICA'} on:click={() => func('CAPITALS_AFRICA')}>AFRICA</div>
-  <div class:clicked={localGameType === 'CAPITALS_OCEANIA'} on:click={() => func('CAPITALS_OCEANIA')}>OCEANIA</div>
-  <div class:clicked={localGameType === 'CAPITALS_AMERICAS'} on:click={() => func('CAPITALS_AMERICAS')}>AMERICAS</div>
+  <div class:clicked={gameType === 'CAPITALS_EUROPE'} on:click={() => func('CAPITALS_EUROPE')}>EUROPE</div>
+  <div class:clicked={gameType === 'CAPITALS_ASIA'} on:click={() => func('CAPITALS_ASIA')}>ASIA</div>
+  <div class:clicked={gameType === 'CAPITALS_AFRICA'} on:click={() => func('CAPITALS_AFRICA')}>AFRICA</div>
+  <div class:clicked={gameType === 'CAPITALS_OCEANIA'} on:click={() => func('CAPITALS_OCEANIA')}>OCEANIA</div>
+  <div class:clicked={gameType === 'CAPITALS_AMERICAS'} on:click={() => func('CAPITALS_AMERICAS')}>AMERICAS</div>
   {#if data}
     <ol>
       {#each data as item}

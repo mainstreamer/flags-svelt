@@ -16,14 +16,15 @@
   let score = 0;
   let livesText = null;
   let youWin = false;
-  let scoreToWin = 54;
+  export let scoreToWin;
+  export let gameId;
 
   const fetchData = async () => {
     try {
       timerCommand = {action : 'start'}
       // timerCommand = {action : 'stop'}
       answerResult = null;
-      const response = await customFetch(`${urlBase}/question/${localStorage.getItem('gameId')}`);
+      const response = await customFetch(`${urlBase}/question/${gameId}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -71,7 +72,6 @@
     }
   }
   const triggerGameOver = ((dispatch = createEventDispatcher()) => () => {
-    // timerCommand = { action : 'stop'}; // this stops timer and updates total time via event
     dispatch('triggerGameOver', {score: score});
     if (score === scoreToWin) {
       answerResult =  { text : `You Won! 👾🎊`, stat: `scored ${score} in ${timeTotal} sec`}
@@ -109,7 +109,9 @@
     location.reload();
   }
 
-  onMount(() => fetchData());
+  onMount(() => {
+    if (undefined !== gameId && null !== gameId) {fetchData()}}
+  );
 
   const checkWin = () => {
     if (score === scoreToWin) {
