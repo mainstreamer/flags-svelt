@@ -23,7 +23,8 @@
   const onTelegramAuth = async (user) => {
     try {
       console.log(self.gameType);
-      startGame(self.gameType);
+
+      startGame(self.gameType); // TODO fix bug
       let response = await fetch(`${urlTgAuth}?${new URLSearchParams(user)}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
