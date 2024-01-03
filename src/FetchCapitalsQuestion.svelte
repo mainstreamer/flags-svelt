@@ -39,7 +39,7 @@
     try {
       timerCommand = { action : 'stop'}; // this stops timer and updates total time via event
       answer = btoa(answer);
-      const response = await customFetch(`${urlBase}/answer/${countryCode}/${answer}`);
+      const response = await customFetch(`${urlBase}/answer/${gameId}/${countryCode}/${answer}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
