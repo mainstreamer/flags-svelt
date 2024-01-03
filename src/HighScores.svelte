@@ -76,11 +76,16 @@
   {/if}
 </div>
 <style>
+  h3 {
+    padding-top: 20px;
+  }
   td {
     min-width: 100px;
   }
 .highScores {
   padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .clicked {
   background-color: #54a9eb;

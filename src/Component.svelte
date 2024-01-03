@@ -72,6 +72,10 @@
     padding: 0;
   }
 
+  .localTimerContainer {
+    margin-top: -20px;
+  }
+
   /*.stopTimerButton {*/
   /*  position: absolute;*/
   /*  top: 5px;*/

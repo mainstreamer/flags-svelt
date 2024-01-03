@@ -107,17 +107,12 @@
 
   const changeGameType = (type) => gameType = type;
 
-  const flipBackground = () => {
-
-  }
-
-  let bg = '';
 </script>
 <body>
 <div>
   {#if loggedIn}
     {#if inProgress}
-      <h4>Time elapsed: {timeTotal} </h4>
+      <h5>Time elapsed: {timeTotal} </h5>
       <FetchCapitalsQuestion on:updateTimeTotal={updateTimeTotal} on:triggerGameOver={gameOver} timeTotal="{timeTotal}" inProgress="{inProgress}" scoreToWin="{scoreToWin}" gameId="{gameId}"/>
     {:else}
       <HighScores gameType="{gameType}" changeGameType="{changeGameType}"/>
@@ -191,5 +186,8 @@
 
   h2 {
     padding-top: 20px;
+  }
+  h5 {
+    padding-top: 5px;
   }
 </style>

@@ -120,7 +120,7 @@
   }
 
 </script>
-<!--<div class="mainContainer frozenGlass">-->
+<div class="mainContainer">
   {#if !data}
 <!--    <button on:click={fetchData}>START</button>-->
   {/if}
@@ -175,7 +175,7 @@
     </div>
   {/if}
 
-<!--</div>-->
+</div>
 
 <style>
   .questionContainer {
@@ -331,4 +331,7 @@
     padding-bottom: 20px;
   }
 
+  .mainContainer {
+    /*padding-top: 20px;*/
+  }
 </style>
