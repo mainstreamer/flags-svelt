@@ -5,10 +5,11 @@
   import {urlBase, urlTgAuth} from "./Constants.js";
   import HighScores from "./HighScores.svelte";
   import {onMount} from "svelte";
-  import backgroundImage from "../img/bg01.webp"
 
   export let name;
   let timeTotal = 0;
+
+
 
   export let gameId = null;
   export let inProgress = false;
@@ -164,13 +165,14 @@
   }
 
   body {
-    background-image: url({backgroundImage});
+    background-image: url('../img/bg01.webp');
     /*background-position: 74% 15%;*/
     background-position: 74%;
     background-size: 140%;
     background-repeat: no-repeat;
     animation: bounceBackground 10s linear infinite; /* Adjust the duration as needed */
     padding: 0;
+    margin-top: -20px;
   }
   .centerContent {
     display: flex;
@@ -185,5 +187,9 @@
     50% {
       background-position: 80% 0%;
     }
+  }
+
+  h2 {
+    padding-top: 20px;
   }
 </style>

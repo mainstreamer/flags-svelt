@@ -80,7 +80,7 @@
     min-width: 100px;
   }
 .highScores {
-  padding: 10px;
+  padding-bottom: 10px;
 }
 .clicked {
   background-color: #54a9eb;
