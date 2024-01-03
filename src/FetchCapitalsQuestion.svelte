@@ -21,16 +21,15 @@
 
   const fetchData = async () => {
     try {
-      timerCommand = {action : 'start'}
-      // timerCommand = {action : 'stop'}
+      timerCommand = {action : 'stop'}
       answerResult = null;
       const response = await customFetch(`${urlBase}/question/${gameId}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       data = await response.json();
-
       displayLives();
+      timerCommand = {action : 'start'}
     } catch (err) {
       error = err.message;
     }
@@ -119,7 +118,6 @@
       triggerGameOver();
     }
   }
-
 
 </script>
 <div class="mainContainer">

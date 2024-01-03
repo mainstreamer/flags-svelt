@@ -56,7 +56,7 @@
 
 <div class="highScores">
   <center>
-    Imagine beautiful landing page ✨
+    Choose region 🌐
   </center>
   <div class:clicked={gameType === 'CAPITALS_EUROPE'} on:click={() => func('CAPITALS_EUROPE')}>EUROPE</div>
   <div class:clicked={gameType === 'CAPITALS_ASIA'} on:click={() => func('CAPITALS_ASIA')}>ASIA</div>
