@@ -9,8 +9,6 @@
   export let name;
   let timeTotal = 0;
 
-
-
   export let gameId = null;
   export let inProgress = false;
   export let scoreToWin = 54;
@@ -26,6 +24,9 @@
     console.log('TIME UPDATED', event.detail.data, timeTotal);
   }
 
+  let bgImg = '../img/bg01.webp';
+  // let bgCol = '#c1dbec';
+  let bgCol = 'none';
   const onTelegramAuth = async (user) => {
     try {
       console.log(gameType);
@@ -72,6 +73,7 @@
         scoreToWin = 55;
         break;
     }
+    flipBG();
     inProgress = true;
   }
 
@@ -93,6 +95,10 @@
 
   onMount(() => {
 
+    // document.body.style.backgroundImage = `url('')`;
+    // console.log(document.body);
+
+
     // Now, you can manipulate the DOM element as needed
     // bodyElement.backgroundImage = '';
     // console.log('OK');
@@ -106,23 +112,27 @@
   });
 
   const changeGameType = (type) => gameType = type;
+  const flipBG = () => {
+    bgImg = bgImg === '../img/bg01.webp' ? '' : '../img/bg01.webp';
+    bgCol = bgCol === '#c1dbec' ? 'none' : '#c1dbec';
+  }
 
 </script>
-<body>
+<body style="background-image: url('{bgImg}'); background-color: {bgCol};">
+<!--<body>-->
 <div>
   {#if loggedIn}
     {#if inProgress}
       <h5>Time elapsed: {timeTotal} </h5>
-      <FetchCapitalsQuestion on:updateTimeTotal={updateTimeTotal} on:triggerGameOver={gameOver} timeTotal="{timeTotal}" inProgress="{inProgress}" scoreToWin="{scoreToWin}" gameId="{gameId}"/>
+      <FetchCapitalsQuestion on:updateTimeTotal={updateTimeTotal} on:triggerGameOver={gameOver} timeTotal="{timeTotal}" inProgress="{inProgress}" scoreToWin="{scoreToWin}" gameId="{gameId}" flipBG="{flipBG}"/>
     {:else}
-      <HighScores gameType="{gameType}" changeGameType="{changeGameType}"/>
+      <HighScores gameType="{gameType}" changeGameType="{changeGameType}" flipBG="{flipBG}"/>
       <div class="centerContent frozenGlass buttonsBlock">
         <button on:click={startGame}>START</button>
       </div>
     {/if}
   {/if}
 </div>
-
 {#if !loggedIn}
   <h2 class="centerContent">Worldly Capitals Challenge 🌐</h2>
   <div class="buttonsBlock centerContent frozenGlass">
@@ -160,14 +170,12 @@
   }
 
   body {
-    background-image: url('../img/bg01.webp');
-    /*background-position: 74% 15%;*/
     background-position: 74%;
     background-size: 140%;
     background-repeat: no-repeat;
     animation: bounceBackground 10s linear infinite; /* Adjust the duration as needed */
     padding: 0;
-    margin-top: -20px;
+    margin-top: -22px;
   }
   .centerContent {
     display: flex;

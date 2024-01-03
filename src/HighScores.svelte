@@ -4,6 +4,7 @@
   let mappedSlug = '';
   export let gameType;
   export let changeGameType;
+  export let flipBG;
 
   let getItems = async () => {
     console.log(gameType);

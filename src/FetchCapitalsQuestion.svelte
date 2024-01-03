@@ -18,6 +18,7 @@
   let youWin = false;
   export let scoreToWin;
   export let gameId;
+  export let flipBG;
 
   const fetchData = async () => {
     try {
@@ -103,9 +104,10 @@
   }
 
   const goBack = () => {
+    location.reload();
     localStorage.setItem('gameId', null);
     inProgress = false;
-    location.reload();
+    flipBG();
   }
 
   onMount(() => {
