@@ -72,10 +72,9 @@
     customFetch(`${urlBase}/game-over`,
           {
             method : 'POST',
-            body: JSON.stringify({'score' : event.detail.score, 'sessionTimer' : timeTotal, 'gameId' : localStorage.getItem('gameId')})
+            body: JSON.stringify({'score' : event.detail.score, 'sessionTimer' : timeTotal, 'gameId' : gameId})
           });
     timeTotal = 0;
-    localStorage.setItem('gameId', null);
   }
 
   const devModeOn = () => {
