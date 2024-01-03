@@ -51,7 +51,7 @@
 
     switch (gameType) {
       case 'CAPITALS_EUROPE':
-        scoreToWin = 46;
+        scoreToWin = 45;
         break;
       case 'CAPITALS_ASIA':
         scoreToWin = 48;
@@ -63,7 +63,7 @@
         scoreToWin = 25;
         break;
       case 'CAPITALS_AMERICAS':
-        scoreToWin = 53;
+        scoreToWin = 55;
         break;
     }
   }
