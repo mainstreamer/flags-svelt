@@ -52,9 +52,9 @@
 
 </script>
 
-<div class="highScores">
+<div class="highScores frozenGlass">
   <center>
-    Choose region 🌐
+    <h3>Choose region 🌐</h3>
   </center>
   <div class:clicked={gameType === 'CAPITALS_EUROPE'} on:click={() => func('CAPITALS_EUROPE')}>EUROPE</div>
   <div class:clicked={gameType === 'CAPITALS_ASIA'} on:click={() => func('CAPITALS_ASIA')}>ASIA</div>
@@ -80,9 +80,21 @@
     min-width: 100px;
   }
 .highScores {
-
+  padding: 10px;
 }
 .clicked {
   background-color: #54a9eb;
 }
+
+  .frozenGlass {
+    background: rgba(255, 255, 255, 0.4); /* White background with opacity */
+    /*border-radius: 10px; !* Optional: for rounded corners *!*/
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: for subtle shadow */
+    /* Backdrop filter for the frosted glass effect */
+    backdrop-filter: blur(13px);
+    /* Cross-browser compatibility */
+    -webkit-backdrop-filter: blur(10px);
+    /*left: */
+  }
+
 </style>

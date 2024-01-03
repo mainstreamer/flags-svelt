@@ -120,7 +120,7 @@
   }
 
 </script>
-<div class="mainContainer">
+<!--<div class="mainContainer frozenGlass">-->
   {#if !data}
 <!--    <button on:click={fetchData}>START</button>-->
   {/if}
@@ -141,7 +141,7 @@
     </div>
     <hr>
 
-      <div class="messageBox">
+      <div class="messageBox frozenGlass2">
         {#if answerResult}
           {#if answerResult.text.includes('GAME OVER') || answerResult.text.includes('You Won')}
             <marquee behavior="alternate">
@@ -153,23 +153,29 @@
           {/if}
         {/if}
       </div>
-
-    {#each data.options as option}
-      <div class="optionLineContainer">
-        <div class="optionButton"><button on:click={reply(data.isoCode, option.option)}>{option.option}</button></div>
-        <div class="optionFlag">{#if answerResult}{option.flag}{:else}&nbsp;{/if}</div>
-        <div class="optionText">{#if answerResult}{option.country}{:else}&nbsp;{/if}</div>
+    <div class="optionsContainer frozenGlass">
+        {#each data.options as option}
+          <div class="optionLineContainer">
+            <div class="optionButton"><button on:click={reply(data.isoCode, option.option)}>{option.option}</button></div>
+            <div class="optionFlag">{#if answerResult}{option.flag}{:else}&nbsp;{/if}</div>
+            <div class="optionText">{#if answerResult}{option.country}{:else}&nbsp;{/if}</div>
+          </div>
+        {/each}
+    </div>
+    <div class="buttonsBlock centerContent frozenGlass">
+      <div>
+<!--      <center>-->
+        {#if livesCount > 0}
+          <button class="megabutton" on:click={fetchData}>GO NEXT</button>
+        {:else}
+          <button class="megabutton" on:click={restartGame}>GO AGAIN</button> <button on:click={goBack}>BACK TO MAIN</button>
+        {/if}
       </div>
-    {/each}
-    <center>
-      {#if livesCount > 0}
-        <button class="megabutton" on:click={fetchData}>GO NEXT</button>
-      {:else}
-        <button class="megabutton" on:click={restartGame}>GO AGAIN</button> <button on:click={goBack}>BACK TO MAIN</button>
-      {/if}
-    </center>
+<!--      </center>-->
+    </div>
   {/if}
-</div>
+
+<!--</div>-->
 
 <style>
   .questionContainer {
@@ -284,4 +290,45 @@
     /* Cross-browser compatibility */
     -webkit-backdrop-filter: blur(10px);
   }
+
+  .buttonsBlock {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .frozenGlass {
+    background: rgba(255, 255, 255, 0.4); /* White background with opacity */
+    /*border-radius: 10px; !* Optional: for rounded corners *!*/
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: for subtle shadow */
+    /* Backdrop filter for the frosted glass effect */
+    backdrop-filter: blur(13px);
+    /* Cross-browser compatibility */
+    -webkit-backdrop-filter: blur(10px);
+    /*left: */
+  }
+
+  .frozenGlass2 {
+    background: rgba(255, 255, 255, -0.6); /* White background with opacity */
+    /*border-radius: 10px; !* Optional: for rounded corners *!*/
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: for subtle shadow */
+    /* Backdrop filter for the frosted glass effect */
+    backdrop-filter: blur(10px);
+    /* Cross-browser compatibility */
+    -webkit-backdrop-filter: blur(10px);
+    /*left: */
+  }
+
+  .centerContent {
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+  }
+
+  .optionsContainer {
+    padding-bottom: 20px;
+  }
+
 </style>
