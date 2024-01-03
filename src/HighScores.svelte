@@ -1,7 +1,5 @@
 <script>
-
   import {urlBase} from "./Constants.js";
-
   let data = null;
   let mappedSlug = '';
   export let gameType;
