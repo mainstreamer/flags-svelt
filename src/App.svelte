@@ -5,6 +5,7 @@
   import {urlBase, urlTgAuth} from "./Constants.js";
   import HighScores from "./HighScores.svelte";
   import {onMount} from "svelte";
+  import backgroundImage from "../img/bg01.webp"
 
   export let name;
   let timeTotal = 0;
@@ -163,7 +164,7 @@
   }
 
   body {
-    background-image: url('img/bg01.webp');
+    background-image: url({backgroundImage});
     /*background-position: 74% 15%;*/
     background-position: 74%;
     background-size: 140%;
