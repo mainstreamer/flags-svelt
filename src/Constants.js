@@ -1,8 +1,10 @@
+// Production
+let baseUrl = 'https://api.flags.izeebot.top';
 
-let baseUrl = 'https://capitals.tldr.icu';
-// let baseUrl = 'http://localhost';
-// let baseUrl = 'https://3e0b-188-28-232-196.ngrok-free.app';
+// Development - uncomment for local dev
+// let baseUrl = 'http://localhost:8000';
 
 let localBase = `${baseUrl}/capitals`;
 export let urlBase = localBase;
 export let urlTgAuth = `${baseUrl}/api/tg/login`;
+export let urlOAuthLogin = `${baseUrl}/login`;

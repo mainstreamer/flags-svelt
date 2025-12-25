@@ -1,6 +1,7 @@
 <script>
   import FetchCapitalsQuestion from "./FetchCapitalsQuestion.svelte";
   import TelegramLoginWidget from "./TelegramLoginWidget.svelte";
+  import OAuthLogin from "./OAuthLogin.svelte";
   import {customFetch} from "./CustomFetch.js";
   import {urlBase, urlTgAuth} from "./Constants.js";
   import HighScores from "./HighScores.svelte";
@@ -39,10 +40,16 @@
       let data = await response.json();
       // todo check ?
       localStorage.setItem('accessToken', data.token);
-      let loggedIn = true;
+      loggedIn = true;
       // inProgress = true;
     } catch (err) {
       let error = err.message;
+    }
+  };
+
+  const onOAuthLogin = (event) => {
+    if (event.detail.success) {
+      loggedIn = true;
     }
   };
 
@@ -135,8 +142,10 @@
 </div>
 {#if !loggedIn}
   <h2 class="centerContent">Worldly Capitals Challenge 🌐</h2>
-  <div class="buttonsBlock centerContent frozenGlass">
+  <div class="buttonsBlock centerContent frozenGlass login-options">
       <TelegramLoginWidget onTelegramAuth={onTelegramAuth} onDevMode="{devModeOn}"/>
+      <span class="login-divider">or</span>
+      <OAuthLogin on:login={onOAuthLogin}/>
   </div>
 {/if}
 </body>
@@ -152,6 +161,15 @@
     position: absolute;
     bottom: -5px;
     left: 0;
+  }
+
+  .login-options {
+    gap: 10px;
+  }
+
+  .login-divider {
+    color: #666;
+    font-size: 14px;
   }
 
   .frozenGlass {

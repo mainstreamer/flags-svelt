@@ -1,0 +1,7 @@
+services:
+  capitals-ui:
+    build: .
+    container_name: capitals-ui
+    ports:
+      - "80:80"
+    restart: unless-stopped

@@ -1,3 +1,14 @@
+# Run locally
+
+1. Install deps
+`npm install`
+2. Run local server port 8080 (need to be able to run on any port)
+`npm run dev` 
+3. Change src/Constants.svelte - point baseUrl to `localhost` (or wherever api is running)
+
+
+### I THINK ITS ALL GARBAGE AND NEEDS TO BE DELETED
+
 # This repo is no longer maintained. Consider using `npm init vite` and selecting the `svelte` option or — if you want a full-fledged app framework — use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
 
 ---

@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: capitals-ui-ingress
+  namespace: capitals-ui
+  labels:
+    app: capitals-ui
+  annotations:
+    # Uncomment for cert-manager TLS
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  # Uncomment and configure TLS
+  # tls:
+  #   - hosts:
+  #       - capitals.izeebot.top
+  #     secretName: capitals-ui-tls
+  rules:
+    - host: capitals.izeebot.top
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: capitals-ui
+                port:
+                  number: 80

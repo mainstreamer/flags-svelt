@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+## Tag your image
+docker tag flags-svelt-capitals-ui ghcr.io/mainstreamer/capitals-ui:latest
